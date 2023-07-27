@@ -94,9 +94,7 @@ contract PetPark {
   function giveBackAnimal() public {
     Borrower storage borrower = addrToBorrower[msg.sender];
 
-    if (borrower.animalType == AnimalType.None) {
-      revert("No borrowed pets");
-    }
+    require(borrower.animalType != AnimalType.None, "No borrowed pets");
 
     animalCounts[borrower.animalType] = animalCounts[borrower.animalType] + 1;
     borrower.animalType = AnimalType.None;
